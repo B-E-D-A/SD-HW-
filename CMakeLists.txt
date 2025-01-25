@@ -13,7 +13,6 @@ set(SOURCES
     src/algorithms/floydWarshall.cpp
     src/algorithms/johnson.cpp
     src/graph.cpp
-    src/utility.cpp
 )
 
 add_executable(SD_project ${SOURCES})
