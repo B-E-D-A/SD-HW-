@@ -8,9 +8,9 @@ include_directories(include)
 set(SOURCES
     src/algorithms/bfs.cpp
     src/algorithms/dijkstra.cpp
-    src/algorithms/bellman_ford.cpp
-    src/algorithms/a_star.cpp
-    src/algorithms/floyd_warshall.cpp
+    src/algorithms/bellmanFord.cpp
+    src/algorithms/aStar.cpp
+    src/algorithms/floydWarshall.cpp
     src/algorithms/johnson.cpp
     src/graph.cpp
     src/utility.cpp
