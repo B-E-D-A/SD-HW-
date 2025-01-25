@@ -12,6 +12,12 @@ set(SOURCES
     src/algorithms/aStar.cpp
     src/algorithms/floydWarshall.cpp
     src/algorithms/johnson.cpp
+    tests/testBfs.cpp
+    tests/testDijkstra.cpp
+    tests/testBellmanFord.cpp
+    tests/testAStar.cpp
+    tests/testFloydWarshall.cpp
+    tests/testJohnson.cpp
 )
 
 add_executable(SD_project ${SOURCES})
