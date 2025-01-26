@@ -1,8 +1,8 @@
 # Graph Algorithms Library
 
-![CI](https://github.com/B-E-D-A/SD-hw/actions/workflows/ci.yml/badge.svg)
-![clang-tidy](https://img.shields.io/badge/linter-clang--tidy-green)
-![CodeQL](https://github.com/B-E-D-A/SD-hw/workflows/CodeQL/badge.svg)
+[![CI](https://github.com/B-E-D-A/SD-HW-/actions/workflows/ci.yml/badge.svg)](https://github.com/B-E-D-A/SD-HW-/actions/workflows/ci.yml)
+[![.github/workflows/dependabot.yml](https://github.com/B-E-D-A/SD-HW-/actions/workflows/dependabot.yml/badge.svg)](https://github.com/B-E-D-A/SD-HW-/actions/workflows/dependabot.yml)
+[![CodeQL Advanced](https://github.com/B-E-D-A/SD-HW-/actions/workflows/codeql.yml/badge.svg)](https://github.com/B-E-D-A/SD-HW-/actions/workflows/codeql.yml)
 
 ## Описание проекта
 
