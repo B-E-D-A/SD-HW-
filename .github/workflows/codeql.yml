@@ -22,7 +22,7 @@ jobs:
       fail-fast: false
       matrix:
         language: [ 'c-cpp' ]
-        build-mode: [ 'auto' ]
+        build-mode: [ 'autobuild' ]
 
     steps:
       - name: Checkout repository
