@@ -1,8 +1,8 @@
 # Graph Algorithms Library
 
 [![CI](https://github.com/B-E-D-A/SD-HW-/actions/workflows/ci.yml/badge.svg)](https://github.com/B-E-D-A/SD-HW-/actions/workflows/ci.yml)
-[![.github/workflows/dependabot.yml](https://github.com/B-E-D-A/SD-HW-/actions/workflows/dependabot.yml/badge.svg)](https://github.com/B-E-D-A/SD-HW-/actions/workflows/dependabot.yml)
 [![CodeQL Advanced](https://github.com/B-E-D-A/SD-HW-/actions/workflows/codeql.yml/badge.svg)](https://github.com/B-E-D-A/SD-HW-/actions/workflows/codeql.yml)
+[![Workflow: Dependabot](https://img.shields.io/badge/Dependabot-enabled-33dd44?logo=github)](https://github.com/B-E-D-A/SD-HW-/actions/workflows/dependabot/dependabot-updates)
 
 ## Описание проекта
 
