@@ -38,6 +38,7 @@ public:
      * @return Вектор с минимальными расстояниями от начальной вершины до всех остальных.
      */
     std::vector<int> dijkstra(int startVertex);
+    std::vector<int> bellmanFord(int startVertex);
 
     /**
      * Алгоритм Беллмана-Форда для поиска кратчайших путей с учётом возможных отрицательных рёбер.
@@ -47,7 +48,7 @@ public:
      * @return Пара, где первый элемент указывает на успешность выполнения алгоритма,
      *         а второй элемент - вектор с минимальными расстояниями от начальной вершины до всех остальных.
      */
-    std::pair<bool, std::vector<int>> bellmanFord(int startVertex);
+    std::vector<int> bellmanFord(int startVertex);
 
     /**
      * Алгоритм A* для поиска кратчайшего пути с учётом эвристики.
