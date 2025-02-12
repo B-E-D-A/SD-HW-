@@ -37,5 +37,5 @@ if (ENABLE_TESTING)
     add_test(NAME BFS COMMAND BFS)
 endif()
 
-add_executable(performanceRunner tests/performanceRunner.cpp)
-target_link_libraries(performanceRunner PRIVATE GraphAlgorithmsLibrary)
+add_executable(environment environment/environment.cpp)
+target_link_libraries(environment PRIVATE GraphAlgorithmsLibrary)
