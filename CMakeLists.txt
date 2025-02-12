@@ -35,6 +35,14 @@ if (ENABLE_TESTING)
     add_executable(BFS tests/testBfs.cpp)
     target_link_libraries(BFS PRIVATE GraphAlgorithmsLibrary)
     add_test(NAME BFS COMMAND BFS)
+
+    add_executable(DIJKSTRA tests/testDijkstra.cpp)
+    target_link_libraries(DIJKSTRA PRIVATE GraphAlgorithmsLibrary)
+    add_test(NAME DIJKSTRA COMMAND DIJKSTRA)
+
+    add_executable(BELLMAN-FORD tests/testDijkstra.cpp)
+    target_link_libraries(BELLMAN-FORD PRIVATE GraphAlgorithmsLibrary)
+    add_test(NAME BELLMAN-FORD COMMAND BELLMAN-FORD)
 endif()
 
 add_executable(environment environment/environment.cpp)
