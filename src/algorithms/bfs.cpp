@@ -3,6 +3,9 @@
 #include <vector>
 #include <iostream>
 
+/**
+ * @brief Реализация алгоритма поиска в ширину (BFS) для обхода графа от стартовой вершины.
+ */
 std::vector<int> GraphAlgorithms::bfs(int startVertex) {
     const int numVertices = graph.getNumVertices();
     std::vector<int> distances(numVertices, -1);
