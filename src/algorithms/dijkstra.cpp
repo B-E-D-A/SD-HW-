@@ -23,7 +23,7 @@ std::vector<int> GraphAlgorithms::dijkstra(int startVertex) {
 
         for (int i = 0; i < numVertices; ++i) {
             int weight = graph.getAdjMatrix()[vertex][i];
-            if (weight > 0) {  // Учитываем только существующие рёбра
+            if (weight > 0) {
                 int newDist = distances[vertex] + weight;
                 if (newDist < distances[i]) {
                     distances[i] = newDist;
