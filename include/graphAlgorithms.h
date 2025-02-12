@@ -14,7 +14,7 @@ public:
 
     std::vector<int> bfs(int startVertex);
     std::vector<int> dijkstra(int startVertex);
-    std::pair<bool, std::vector<int>> bellmanFord(int startVertex);
+    std::vector<int> bellmanFord(int startVertex);
     std::vector<int> aStar(int startVertex, int goalVertex);
     std::vector<std::vector<int>> floydWarshall();
     std::vector<std::vector<int>> johnson();
