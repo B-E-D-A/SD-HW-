@@ -14,6 +14,7 @@
 В проекте реализованы классические алгоритмы, каждый из которых подходит для разных типов графов и условий задачи.
 
 Архитектура проекта изображена в [документе](https://github.com/B-E-D-A/SD-HW-/blob/task-1/Архитектура%20проекта_%20Библиотека%20алгоритмов%20для%20графов.pdf) .
+Отчет Benchmarking: [Benchmarking](https://docs.google.com/document/d/1klIUP2tGrKDryVebytlYV47goJq73C82ucV7W-2J9bQ/edit?usp=sharing)
 
 ## Реализованные алгоритмы:
 
