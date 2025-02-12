@@ -40,7 +40,7 @@ if (ENABLE_TESTING)
     target_link_libraries(DIJKSTRA PRIVATE GraphAlgorithmsLibrary)
     add_test(NAME DIJKSTRA COMMAND DIJKSTRA)
 
-    add_executable(BELLMAN-FORD tests/testDijkstra.cpp)
+    add_executable(BELLMAN-FORD tests/testBellmanFord.cpp)
     target_link_libraries(BELLMAN-FORD PRIVATE GraphAlgorithmsLibrary)
     add_test(NAME BELLMAN-FORD COMMAND BELLMAN-FORD)
 endif()
