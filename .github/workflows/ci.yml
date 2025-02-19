@@ -1,5 +1,3 @@
-name: CI
-
 on:
   push:
     branches: [ "main" ]
@@ -16,29 +14,17 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt update
-          sudo apt install -y build-essential cmake libgtest-dev
-          cd /usr/src/gtest
-          sudo cmake . 
-          sudo make
-          sudo cp lib/*.a /usr/lib
-
-      - name: Clone & Build Google Benchmark
-        run: |
-          git clone --depth=1 https://github.com/google/benchmark.git algo-benchmarking/benchmark
-          cd algo-benchmarking/benchmark
-          cmake -E make_directory "build"
-          cmake -E chdir "build" cmake -DCMAKE_BUILD_TYPE=Release ../
-          cmake --build build --config Release
+          sudo apt install -y build-essential cmake
 
       - name: Configure project with CMake
         run: |
-          cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+          cmake -S . -B build
 
       - name: Build project
         run: |
-          cmake --build build
+           cmake --build build
 
       - name: Run tests
         run: |
-          cd build
-          ctest --output-on-failure
+           cd build
+           ctest --output-on-failure
