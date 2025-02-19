@@ -16,11 +16,7 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt update
-          sudo apt install -y build-essential cmake libgtest-dev
-          cd /usr/src/gtest
-          sudo cmake . 
-          sudo make
-          sudo cp lib/*.a /usr/lib  # Устанавливаем Google Test
+          sudo apt install -y build-essential cmake
 
       - name: Clone & Build Google Benchmark
         run: |
@@ -28,7 +24,7 @@ jobs:
           cd algo-benchmarking/benchmark
           cmake -E make_directory "build"
           cmake -E chdir "build" cmake -DCMAKE_BUILD_TYPE=Release -DBENCHMARK_DOWNLOAD_DEPENDENCIES=ON ../
-          cmake --build build --config Release  # Компилируем Benchmark
+          cmake --build build --config Release
 
       - name: Configure project with CMake
         run: |
