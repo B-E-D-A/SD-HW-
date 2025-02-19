@@ -18,15 +18,23 @@ jobs:
           sudo apt update
           sudo apt install -y build-essential cmake
 
+      - name: Clone & Build Google Benchmark
+        run: |
+          git clone --depth=1 https://github.com/google/benchmark.git algo-benchmarking/benchmark
+          cd algo-benchmarking/benchmark
+          cmake -E make_directory "build"
+          cmake -E chdir "build" cmake -DCMAKE_BUILD_TYPE=Release ../
+          cmake --build build --config Release
+
       - name: Configure project with CMake
         run: |
-          cmake -S . -B build
+          cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
 
       - name: Build project
         run: |
-           cmake --build build
+          cmake --build build
 
       - name: Run tests
         run: |
-           cd build
-           ctest --output-on-failure
+          cd build
+          ctest --output-on-failure
