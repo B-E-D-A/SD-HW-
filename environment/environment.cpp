@@ -1,24 +1,19 @@
-#include <iostream>
-#include <vector>
-#include <chrono>
-#include <random>
+#include <benchmark/benchmark.h>
 #include "graph.h"
 #include "graphAlgorithms.h"
+#include <vector>
+#include <random>
+#include <memory>
 
-template<typename Func>
-long long benchmark(Func &&func) {
-    auto start = std::chrono::high_resolution_clock::now();
-    func();
-    auto end = std::chrono::high_resolution_clock::now();
-    auto duration = end - start;
-    return duration.count();
-}
+static std::unique_ptr<Graph> completeGraph;
+static std::unique_ptr<Graph> randomGraph1;
+static std::unique_ptr<Graph> randomGraph2;
+static std::unique_ptr<Graph> randomGraph3;
 
 Graph createCompleteGraph(int numVertices) {
     std::vector<std::vector<int>> adjMatrix(numVertices, std::vector<int>(numVertices, 1));
-    for (int i = 0; i < numVertices; ++i) {
+    for (int i = 0; i < numVertices; ++i)
         adjMatrix[i][i] = 0;
-    }
     return Graph(adjMatrix);
 }
 
@@ -26,78 +21,159 @@ Graph createRandomGraph(int numVertices, int numEdges) {
     std::vector<std::vector<int>> adjMatrix(numVertices, std::vector<int>(numVertices, 0));
     std::random_device rd;
     std::mt19937 gen(rd());
-    std::uniform_int_distribution<> dis(1, 10);
-    std::uniform_int_distribution<> disVertices(0, numVertices - 1);
-
+    std::uniform_int_distribution<> weightDist(1, 10);
+    std::uniform_int_distribution<> vertexDist(0, numVertices - 1);
     for (int i = 0; i < numEdges; ++i) {
-        int u = disVertices(gen);
-        int v = disVertices(gen);
-        int weight = dis(gen);
+        int u = vertexDist(gen);
+        int v = vertexDist(gen);
+        int weight = weightDist(gen);
         adjMatrix[u][v] = weight;
         adjMatrix[v][u] = weight;
     }
-
     return Graph(adjMatrix);
 }
 
-void benchmarkAlgorithms(int numVertices) {
-    Graph completeGraph = createCompleteGraph(numVertices);
-    Graph randomGraph1 = createRandomGraph(numVertices, numVertices * 2);
-    Graph randomGraph2 = createRandomGraph(numVertices, numVertices * 2);
-    Graph randomGraph3 = createRandomGraph(numVertices, numVertices * 2);
-
-    GraphAlgorithms gaComplete(completeGraph);
-    GraphAlgorithms gaRandom1(randomGraph1);
-    GraphAlgorithms gaRandom2(randomGraph2);
-    GraphAlgorithms gaRandom3(randomGraph3);
-
-    std::cout << "Benchmarking complete graph with " << numVertices << " vertices:\n";
-    long long bfsTime = benchmark([&]() { gaComplete.bfs(0); });
-    std::cout << "BFS time: " << bfsTime << " ms\n";
-
-    long long dijkstraTime = benchmark([&]() { gaComplete.dijkstra(0); });
-    std::cout << "Dijkstra time: " << dijkstraTime << " ms\n";
-
-    long long bellmanFordTime = benchmark([&]() { gaComplete.bellmanFord(0); });
-    std::cout << "Bellman-Ford time: " << bellmanFordTime << " ms\n";
-
-    // Для случайного графа 1
-    std::cout << "\nBenchmarking random graph 1 with " << numVertices << " vertices:\n";
-    bfsTime = benchmark([&]() { gaRandom1.bfs(0); });
-    std::cout << "BFS time: " << bfsTime << " ms\n";
-
-    dijkstraTime = benchmark([&]() { gaRandom1.dijkstra(0); });
-    std::cout << "Dijkstra time: " << dijkstraTime << " ms\n";
-
-    bellmanFordTime = benchmark([&]() { gaRandom1.bellmanFord(0); });
-    std::cout << "Bellman-Ford time: " << bellmanFordTime << " ms\n";
-
-    // Для случайного графа 2
-    std::cout << "\nBenchmarking random graph 2 with " << numVertices << " vertices:\n";
-    bfsTime = benchmark([&]() { gaRandom2.bfs(0); });
-    std::cout << "BFS time: " << bfsTime << " ms\n";
-
-    dijkstraTime = benchmark([&]() { gaRandom2.dijkstra(0); });
-    std::cout << "Dijkstra time: " << dijkstraTime << " ms\n";
-
-    bellmanFordTime = benchmark([&]() { gaRandom2.bellmanFord(0); });
-    std::cout << "Bellman-Ford time: " << bellmanFordTime << " ms\n";
-
-    // Для случайного графа 3
-    std::cout << "\nBenchmarking random graph 3 with " << numVertices << " vertices:\n";
-    bfsTime = benchmark([&]() { gaRandom3.bfs(0); });
-    std::cout << "BFS time: " << bfsTime << " ms\n";
-
-    dijkstraTime = benchmark([&]() { gaRandom3.dijkstra(0); });
-    std::cout << "Dijkstra time: " << dijkstraTime << " ms\n";
-
-    bellmanFordTime = benchmark([&]() { gaRandom3.bellmanFord(0); });
-    std::cout << "Bellman-Ford time: " << bellmanFordTime << " ms\n";
-
+static void SetupGraphs(int numVertices) {
+    completeGraph = std::make_unique<Graph>(createCompleteGraph(numVertices));
+    randomGraph1 = std::make_unique<Graph>(createRandomGraph(numVertices, numVertices * 2));
+    randomGraph2 = std::make_unique<Graph>(createRandomGraph(numVertices, numVertices * 2));
+    randomGraph3 = std::make_unique<Graph>(createRandomGraph(numVertices, numVertices * 2));
 }
 
-int main() {
-    int numVertices = 100;
-    benchmarkAlgorithms(numVertices);
+static void BM_BFS_Complete(benchmark::State& state) {
+    GraphAlgorithms ga(*completeGraph);
+    for (auto _ : state) {
+        ga.bfs(0);
+    }
+}
+BENCHMARK(BM_BFS_Complete);
+
+static void BM_Dijkstra_Complete(benchmark::State& state) {
+    GraphAlgorithms ga(*completeGraph);
+    for (auto _ : state) {
+        ga.dijkstra(0);
+    }
+}
+BENCHMARK(BM_Dijkstra_Complete);
+
+static void BM_BellmanFord_Complete(benchmark::State& state) {
+    GraphAlgorithms ga(*completeGraph);
+    for (auto _ : state) {
+        ga.bellmanFord(0);
+    }
+}
+BENCHMARK(BM_BellmanFord_Complete);
+
+static void BM_AStar_Complete(benchmark::State& state) {
+    GraphAlgorithms ga(*completeGraph);
+    for (auto _ : state) {
+        ga.aStar(0);
+    }
+}
+BENCHMARK(BM_AStar_Complete);
+
+static void BM_BFS_Random1(benchmark::State& state) {
+    GraphAlgorithms ga(*randomGraph1);
+    for (auto _ : state) {
+        ga.bfs(0);
+    }
+}
+BENCHMARK(BM_BFS_Random1);
+
+static void BM_Dijkstra_Random1(benchmark::State& state) {
+    GraphAlgorithms ga(*randomGraph1);
+    for (auto _ : state) {
+        ga.dijkstra(0);
+    }
+}
+BENCHMARK(BM_Dijkstra_Random1);
+
+static void BM_BellmanFord_Random1(benchmark::State& state) {
+    GraphAlgorithms ga(*randomGraph1);
+    for (auto _ : state) {
+        ga.bellmanFord(0);
+    }
+}
+BENCHMARK(BM_BellmanFord_Random1);
+
+static void BM_AStar_Random1(benchmark::State& state) {
+    GraphAlgorithms ga(*randomGraph1);
+    for (auto _ : state) {
+        ga.aStar(0);
+    }
+}
+BENCHMARK(BM_AStar_Random1);
+
+static void BM_BFS_Random2(benchmark::State& state) {
+    GraphAlgorithms ga(*randomGraph2);
+    for (auto _ : state) {
+        ga.bfs(0);
+    }
+}
+BENCHMARK(BM_BFS_Random2);
+
+static void BM_Dijkstra_Random2(benchmark::State& state) {
+    GraphAlgorithms ga(*randomGraph2);
+    for (auto _ : state) {
+        ga.dijkstra(0);
+    }
+}
+BENCHMARK(BM_Dijkstra_Random2);
+
+static void BM_BellmanFord_Random2(benchmark::State& state) {
+    GraphAlgorithms ga(*randomGraph2);
+    for (auto _ : state) {
+        ga.bellmanFord(0);
+    }
+}
+BENCHMARK(BM_BellmanFord_Random2);
+
+static void BM_AStar_Random2(benchmark::State& state) {
+    GraphAlgorithms ga(*randomGraph2);
+    for (auto _ : state) {
+        ga.aStar(0);
+    }
+}
+BENCHMARK(BM_AStar_Random2);
+
+static void BM_BFS_Random3(benchmark::State& state) {
+    GraphAlgorithms ga(*randomGraph3);
+    for (auto _ : state) {
+        ga.bfs(0);
+    }
+}
+BENCHMARK(BM_BFS_Random3);
+
+static void BM_Dijkstra_Random3(benchmark::State& state) {
+    GraphAlgorithms ga(*randomGraph3);
+    for (auto _ : state) {
+        ga.dijkstra(0);
+    }
+}
+BENCHMARK(BM_Dijkstra_Random3);
+
+static void BM_BellmanFord_Random3(benchmark::State& state) {
+    GraphAlgorithms ga(*randomGraph3);
+    for (auto _ : state) {
+        ga.bellmanFord(0);
+    }
+}
+BENCHMARK(BM_BellmanFord_Random3);
+
+static void BM_AStar_Random3(benchmark::State& state) {
+    GraphAlgorithms ga(*randomGraph3);
+    for (auto _ : state) {
+        ga.aStar(0);
+    }
+}
+BENCHMARK(BM_AStar_Random3);
+
+int main(int argc, char** argv) {
+    ::benchmark::Initialize(&argc, argv);
+
+    int numVertices = 500;
+    SetupGraphs(numVertices);
+
+    ::benchmark::RunSpecifiedBenchmarks();
     return 0;
 }

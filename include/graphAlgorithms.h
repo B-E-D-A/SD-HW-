@@ -57,7 +57,7 @@ public:
      * @param goalVertex Конечная вершина.
      * @return Вектор, представляющий кратчайший путь от startVertex до goalVertex.
      */
-    std::vector<int> aStar(int startVertex, int goalVertex);
+    std::vector<int> aStar(int startVertex);
 
     /**
      * Алгоритм Флойда-Уоршелла для нахождения всех кратчайших путей между всеми парами вершин.
