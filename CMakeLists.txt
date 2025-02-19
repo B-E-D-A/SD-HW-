@@ -3,6 +3,9 @@ project(GraphAlgorithmsLibrary)
 
 set(CMAKE_CXX_STANDARD 17)
 
+set(BENCHMARK_DOWNLOAD_DEPENDENCIES ON)
+add_subdirectory(algo-benchmarking/benchmark)
+
 add_library(GraphAlgorithmsLibrary STATIC
         src/algorithms/bfs.cpp
         src/algorithms/dijkstra.cpp
@@ -46,4 +49,4 @@ if (ENABLE_TESTING)
 endif()
 
 add_executable(environment environment/environment.cpp)
-target_link_libraries(environment PRIVATE GraphAlgorithmsLibrary)
+target_link_libraries(environment PRIVATE GraphAlgorithmsLibrary benchmark::benchmark)
