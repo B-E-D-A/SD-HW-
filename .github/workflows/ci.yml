@@ -1,3 +1,5 @@
+name: CI
+
 on:
   push:
     branches: [ "main" ]
@@ -14,17 +16,29 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt update
-          sudo apt install -y build-essential cmake
+          sudo apt install -y build-essential cmake libgtest-dev
+          cd /usr/src/gtest
+          sudo cmake . 
+          sudo make
+          sudo cp lib/*.a /usr/lib  # Устанавливаем Google Test
+
+      - name: Clone & Build Google Benchmark
+        run: |
+          git clone --depth=1 https://github.com/google/benchmark.git algo-benchmarking/benchmark
+          cd algo-benchmarking/benchmark
+          cmake -E make_directory "build"
+          cmake -E chdir "build" cmake -DCMAKE_BUILD_TYPE=Release -DBENCHMARK_DOWNLOAD_DEPENDENCIES=ON ../
+          cmake --build build --config Release  # Компилируем Benchmark
 
       - name: Configure project with CMake
         run: |
-          cmake -S . -B build
+          cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
 
       - name: Build project
         run: |
-           cmake --build build
+          cmake --build build  # Убрали --config Release (ненужно на Linux)
 
       - name: Run tests
         run: |
-           cd build
-           ctest --output-on-failure
+          cd build
+          ctest --output-on-failure
