@@ -13,6 +13,7 @@ add_library(GraphAlgorithmsLibrary STATIC
         src/algorithms/aStar.cpp
         src/algorithms/floydWarshall.cpp
         src/algorithms/johnson.cpp
+        src/algorithms/bruteForce.cpp
         )
 
 target_include_directories(GraphAlgorithmsLibrary PUBLIC $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include> $<INSTALL_INTERFACE:include>)
@@ -46,6 +47,10 @@ if (ENABLE_TESTING)
     add_executable(BELLMAN-FORD tests/testBellmanFord.cpp)
     target_link_libraries(BELLMAN-FORD PRIVATE GraphAlgorithmsLibrary)
     add_test(NAME BELLMAN-FORD COMMAND BELLMAN-FORD)
+
+    add_executable(BRUTE-FORCE tests/testBruteForce.cpp)
+    target_link_libraries(BRUTE-FORCE PRIVATE GraphAlgorithmsLibrary)
+    add_test(NAME BRUTE-FORCE COMMAND BRUTE-FORCE)
 endif()
 
 add_executable(environment environment/environment.cpp)
