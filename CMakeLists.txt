@@ -12,6 +12,7 @@ add_library(GraphAlgorithmsLibrary STATIC
         src/algorithms/bellmanFord.cpp
         src/algorithms/aStar.cpp
         src/algorithms/floydWarshall.cpp
+        src/algorithms/bruteForce.cpp
         src/algorithms/oneKBfs.cpp
         )
 
@@ -46,6 +47,10 @@ if (ENABLE_TESTING)
     add_executable(BELLMAN-FORD tests/testBellmanFord.cpp)
     target_link_libraries(BELLMAN-FORD PRIVATE GraphAlgorithmsLibrary)
     add_test(NAME BELLMAN-FORD COMMAND BELLMAN-FORD)
+
+    add_executable(BRUTE-FORCE tests/testBruteForce.cpp)
+    target_link_libraries(BRUTE-FORCE PRIVATE GraphAlgorithmsLibrary)
+    add_test(NAME BRUTE-FORCE COMMAND BRUTE-FORCE)
 
     add_executable(ONE_K_BFS tests/testOneKBfs.cpp)
     target_link_libraries(ONE_K_BFS PRIVATE GraphAlgorithmsLibrary)

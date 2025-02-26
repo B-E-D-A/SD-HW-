@@ -59,6 +59,16 @@ public:
      */
     std::vector<int> aStar(int startVertex);
 
+
+    /**
+    * @brief Реализация brute-force для нахождения кратчайших расстояний от одной вершины до всех остальных.
+    *
+    * @param startVertex Начальная вершина.
+    * @return std::vector<int> Вектор, где i-й элемент содержит минимальную длину пути от startVertex до вершины i,
+    *         либо std::numeric_limits<int>::max(), если вершина недостижима. Работает за O(V!)
+    */
+    std::vector<int> bruteForce(int startVertex);
+
     /**
      * Алгоритм Флойда-Уоршелла для нахождения всех кратчайших путей между всеми парами вершин.
      *
