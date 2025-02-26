@@ -80,6 +80,14 @@ static void BM_oneKBFS_Complete(benchmark::State& state) {
 }
 BENCHMARK(BM_oneKBFS_Complete);
 
+static void BM_floydWarshall_Complete(benchmark::State& state) {
+    GraphAlgorithms ga(*completeGraph);
+    for (auto _ : state) {
+        ga.floydWarshall();
+    }
+}
+BENCHMARK(BM_floydWarshall_Complete);
+
 static void BM_BFS_Random1(benchmark::State& state) {
     GraphAlgorithms ga(*randomGraph1);
     for (auto _ : state) {
@@ -119,6 +127,14 @@ static void BM_oneKBfs_Random1(benchmark::State& state) {
     }
 }
 BENCHMARK(BM_oneKBfs_Random1);
+
+static void BM_floydWarshall_Random1(benchmark::State& state) {
+    GraphAlgorithms ga(*randomGraph1);
+    for (auto _ : state) {
+        ga.floydWarshall();
+    }
+}
+BENCHMARK(BM_floydWarshall_Random1);
 
 static void BM_BFS_Random2(benchmark::State& state) {
     GraphAlgorithms ga(*randomGraph2);
@@ -160,6 +176,14 @@ static void BM_oneKBfs_Random2(benchmark::State& state) {
 }
 BENCHMARK(BM_oneKBfs_Random2);
 
+static void BM_floydWarshall_Random2(benchmark::State& state) {
+    GraphAlgorithms ga(*randomGraph2);
+    for (auto _ : state) {
+        ga.floydWarshall();
+    }
+}
+BENCHMARK(BM_floydWarshall_Random2);
+
 static void BM_BFS_Random3(benchmark::State& state) {
     GraphAlgorithms ga(*randomGraph3);
     for (auto _ : state) {
@@ -199,6 +223,14 @@ static void BM_oneKBfs_Random3(benchmark::State& state) {
     }
 }
 BENCHMARK(BM_oneKBfs_Random3);
+
+static void BM_floydWarshall_Random3(benchmark::State& state) {
+    GraphAlgorithms ga(*randomGraph3);
+    for (auto _ : state) {
+        ga.floydWarshall();
+    }
+}
+BENCHMARK(BM_floydWarshall_Random3);
 
 int main(int argc, char** argv) {
     ::benchmark::Initialize(&argc, argv);
