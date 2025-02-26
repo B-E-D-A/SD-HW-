@@ -12,7 +12,7 @@ add_library(GraphAlgorithmsLibrary STATIC
         src/algorithms/bellmanFord.cpp
         src/algorithms/aStar.cpp
         src/algorithms/floydWarshall.cpp
-        src/algorithms/johnson.cpp
+        src/algorithms/oneKBfs.cpp
         )
 
 target_include_directories(GraphAlgorithmsLibrary PUBLIC $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include> $<INSTALL_INTERFACE:include>)
@@ -46,6 +46,10 @@ if (ENABLE_TESTING)
     add_executable(BELLMAN-FORD tests/testBellmanFord.cpp)
     target_link_libraries(BELLMAN-FORD PRIVATE GraphAlgorithmsLibrary)
     add_test(NAME BELLMAN-FORD COMMAND BELLMAN-FORD)
+
+    add_executable(ONE_K_BFS tests/testOneKBfs.cpp)
+    target_link_libraries(ONE_K_BFS PRIVATE GraphAlgorithmsLibrary)
+    add_test(NAME ONE_K_BFS COMMAND ONE_K_BFS)
 endif()
 
 add_executable(environment environment/environment.cpp)
