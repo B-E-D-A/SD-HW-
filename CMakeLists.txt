@@ -50,6 +50,10 @@ if (ENABLE_TESTING)
     add_executable(ONE_K_BFS tests/testOneKBfs.cpp)
     target_link_libraries(ONE_K_BFS PRIVATE GraphAlgorithmsLibrary)
     add_test(NAME ONE_K_BFS COMMAND ONE_K_BFS)
+    
+    add_executable(FLOYD-WARSHALL tests/testFloydWarshall.cpp)
+    target_link_libraries(FLOYD-WARSHALL PRIVATE GraphAlgorithmsLibrary)
+    add_test(NAME FLOYD-WARSHALL COMMAND FLOYD-WARSHALL)
 endif()
 
 add_executable(environment environment/environment.cpp)
