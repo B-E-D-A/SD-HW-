@@ -13,9 +13,11 @@
 
 В проекте реализованы классические алгоритмы, каждый из которых подходит для разных типов графов и условий задачи.
 
-Архитектура проекта изображена в [документе](https://github.com/B-E-D-A/SD-HW-/blob/task-1/Архитектура%20проекта_%20Библиотека%20алгоритмов%20для%20графов.pdf) .
-Отчет Benchmarking: [Benchmarking](https://docs.google.com/document/d/1klIUP2tGrKDryVebytlYV47goJq73C82ucV7W-2J9bQ/edit?usp=sharing) .
-Инструкция по расширению библиотеки: [Инструкция](https://docs.google.com/document/d/1ux1IEVPqfPKg8TSWvUk7LYiDWWFm4nn_tkW70Z6TpPA/edit?tab=t.0)
+- [Архитектура проекта](https://github.com/B-E-D-A/SD-HW-/blob/task-1/Архитектура%20проекта_%20Библиотека%20алгоритмов%20для%20графов.pdf)
+
+- [Отчет Benchmarking](https://docs.google.com/document/d/1klIUP2tGrKDryVebytlYV47goJq73C82ucV7W-2J9bQ/edit?usp=sharing)
+
+- [Инструкция по расширению библиотеки](https://docs.google.com/document/d/1ux1IEVPqfPKg8TSWvUk7LYiDWWFm4nn_tkW70Z6TpPA/edit?tab=t.0)
 
 ## Реализованные алгоритмы:
 
@@ -69,11 +71,38 @@
 
    Типы графов: Графы с произвольными весами.
 
-## Как собрать и запустить
+## Инструкция по установке и использованию библиотеки GraphAlgorithmsLibrary
 
 1. Склонировать репозиторий.
-2. Для сборки проекта используйте CMake.
-3. Скомпилируйте и выполните тесты.
+   ```
+   git clone <URL_РЕПОЗИТОРИЯ>
+   cd <ИМЯ_ПАПКИ_РЕПОЗИТОРИЯ>
+   ```
+2. Для сборки проекта используйте CMake:
+   ```
+   mkdir build
+   cd build
+   cmake ..
+   cmake --build .
+   sudo cmake --install .
+   ```
+3. Использование библиотеки в своём проекте
+
+   - Добавьте библиотеку в CMakeLists.txt:
+     ```
+     find_package(GraphAlgorithmsLibrary REQUIRED)
+     target_link_libraries(my_project PRIVATE GraphAlgorithmsLibrary)
+     ```
+   - Использование в файле `#include <GraphAlgorithmsLibrary/graph_algorithms.h>`
+
+4. Также можно запустить тесты:
+   ```
+   cd build
+   ctest --output-on-failure
+   ```
+6. Запуск Benchmark: `./environment`
+
+3. Использование библиотеки в своём проекте
 
 ## Лицензия
 
