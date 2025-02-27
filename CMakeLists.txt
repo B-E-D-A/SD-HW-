@@ -3,8 +3,16 @@ project(GraphAlgorithmsLibrary)
 
 set(CMAKE_CXX_STANDARD 17)
 
+include(FetchContent)
+FetchContent_Declare(
+        google-benchmark
+        GIT_REPOSITORY https://github.com/google/benchmark.git
+        GIT_TAG v1.9.1
+)
+set(BENCHMARK_ENABLE_GTEST_TESTS OFF)
 set(BENCHMARK_DOWNLOAD_DEPENDENCIES ON)
-add_subdirectory(algo-benchmarking/benchmark)
+FetchContent_MakeAvailable(google-benchmark)
+set(CMAKE_BUILD_TYPE Release)
 
 add_library(GraphAlgorithmsLibrary STATIC
         src/algorithms/bfs.cpp
