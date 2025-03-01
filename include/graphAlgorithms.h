@@ -85,6 +85,17 @@ public:
      * @return Вектор, представляющий кратчайший путь до каждой вершины.
      */
     std::vector<int> oneKBfs(int startVertex, int k = 10);
+
+
+    /**
+     * 0-1 BFS для графов с весами рёбер 0 или 1.
+     *
+     * Оптимизированная версия BFS с использованием дека для достижения сложности O(V + E).
+     * @param startVertex Вершина, с которой начинается поиск.
+     * @return Вектор с минимальными расстояниями от начальной вершины до всех остальных.
+     */
+    std::vector<int> zeroOneBfs(int startVertex);
+
 };
 
 #endif // GRAPH_ALGORITHMS_H

@@ -14,6 +14,7 @@ add_library(GraphAlgorithmsLibrary STATIC
         src/algorithms/floydWarshall.cpp
         src/algorithms/bruteForce.cpp
         src/algorithms/oneKBfs.cpp
+        src/algorithms/zeroOneBfs.cpp
         )
 
 target_include_directories(GraphAlgorithmsLibrary PUBLIC $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include> $<INSTALL_INTERFACE:include>)
@@ -59,6 +60,10 @@ if (ENABLE_TESTING)
     add_executable(FLOYD-WARSHALL tests/testFloydWarshall.cpp)
     target_link_libraries(FLOYD-WARSHALL PRIVATE GraphAlgorithmsLibrary)
     add_test(NAME FLOYD-WARSHALL COMMAND FLOYD-WARSHALL)
+
+    add_executable(ZERO-ONE-BFS tests/testZeroOneBfs.cpp)
+    target_link_libraries(ZERO-ONE-BFS PRIVATE GraphAlgorithmsLibrary)
+    add_test(NAME ZERO-ONE-BFS COMMAND ZERO-ONE-BFS)
 endif()
 
 add_executable(environment environment/environment.cpp)
