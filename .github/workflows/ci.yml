@@ -1,0 +1,42 @@
+name: CI
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          sudo apt update
+          sudo apt install -y build-essential cmake
+
+      - name: Clone & Build Google Benchmark
+        run: |
+          git clone --depth=1 https://github.com/google/benchmark.git algo-benchmarking/benchmark
+          cd algo-benchmarking/benchmark
+          cmake -E make_directory "build"
+          cmake -E chdir "build" cmake -DCMAKE_BUILD_TYPE=Release -DBENCHMARK_DOWNLOAD_DEPENDENCIES=ON ../
+          cmake --build build --config Release
+
+      - name: Configure project with CMake
+        run: |
+          cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+
+      - name: Build project
+        run: |
+          cmake --build build  # Убрали --config Release (ненужно на Linux)
+
+      - name: Run tests
+        run: |
+          cd build
+          ctest --output-on-failure
